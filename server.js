@@ -10,6 +10,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Enable CORS for cross-origin requests (e.g. Live Server or file protocol)
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 // Helper to safely read JSON files
 function readJsonFile(relativePath) {
   const filePath = path.join(__dirname, relativePath);
@@ -137,7 +148,7 @@ function calculateAssessmentScore(req, res) {
 
     const { answers } = req.body;
 
-    if (!answers) {
+    if (!answers || (Array.isArray(answers) && answers.length === 0) || (typeof answers === 'object' && Object.keys(answers).length === 0)) {
       return res.status(400).json({
         success: false,
         message: 'No answers were provided in the request body.'
@@ -154,16 +165,19 @@ function calculateAssessmentScore(req, res) {
     if (Array.isArray(answers)) {
       answers.forEach(item => {
         if (typeof item === 'object' && item !== null && 'score' in item) {
-          totalScore += Number(item.score) || 0;
+          const s = Math.max(0, Math.min(4, Number(item.score) || 0));
+          totalScore += s;
           answeredCount++;
         } else if (typeof item === 'number') {
-          totalScore += item;
+          const s = Math.max(0, Math.min(4, item || 0));
+          totalScore += s;
           answeredCount++;
         }
       });
     } else if (typeof answers === 'object' && answers !== null) {
       Object.values(answers).forEach(val => {
-        totalScore += Number(val) || 0;
+        const s = Math.max(0, Math.min(4, Number(val) || 0));
+        totalScore += s;
         answeredCount++;
       });
     }

@@ -31,6 +31,7 @@
           <li><a href="chatbot.html" class="nav-link">Chat</a></li>
           <li><a href="resources.html" class="nav-link">Resources</a></li>
           <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="assessment.html" class="btn btn-sm nav-cta">Start Assessment</a></li>
         </ul>
       </nav>
     </div>
@@ -65,6 +66,20 @@
           </span>
           <span id="scoreText" class="score-display">Score: 18 / 40</span>
         </div>
+
+        <!-- Visual Score Meter -->
+        <div class="score-meter-container" aria-label="Visual stress indicator spectrum">
+          <div class="score-meter-track">
+            <div class="meter-zone zone-low">Low (0–12)</div>
+            <div class="meter-zone zone-mod">Moderate (13–24)</div>
+            <div class="meter-zone zone-high">High (25–40)</div>
+            <div class="score-marker" id="scoreMarker" style="left: 45%;">
+              <span class="marker-pin">&#9660;</span>
+              <span class="marker-val" id="markerValue">18</span>
+            </div>
+          </div>
+        </div>
+
         <h3 id="summaryText" class="result-summary-text">
           Your responses indicate a Moderate Stress Indicator.
         </h3>
@@ -103,6 +118,9 @@
         <a href="chatbot.html" class="btn btn-secondary">
           &#128172; Talk to SecretSaathi
         </a>
+        <button type="button" class="btn btn-secondary" onclick="window.print()" title="Print or save results as PDF">
+          &#128438; Print / Save Summary
+        </button>
       </div>
     </div>
   </main>

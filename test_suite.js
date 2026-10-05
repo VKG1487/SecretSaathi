@@ -111,11 +111,40 @@ async function runTests() {
   });
   console.log('POST /api/score (High) ->', scoreHigh.status, 'Score:', scoreHigh.body.totalScore, 'Tag:', scoreHigh.body.tag, 'Cat:', scoreHigh.body.category);
 
-  // 9. Check all HTML pages
+  // 9. POST /api/score (Edge case: Empty answers, expect 400)
+  const scoreEmpty = await request({
+    host: 'localhost',
+    port: 3000,
+    path: '/api/score',
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
+  }, { answers: [] });
+  console.log('POST /api/score (Empty answers) ->', scoreEmpty.status, scoreEmpty.status === 400 ? 'OK (Rejected empty answers)' : 'FAIL');
+
+  // 10. GET /api/resources?search=Tele-MANAS
+  const resSearch = await request({ host: 'localhost', port: 3000, path: '/api/resources?search=Tele-MANAS', method: 'GET' });
+  console.log('GET /api/resources?search=Tele-MANAS ->', resSearch.status, 'Count:', resSearch.body.count, 'Found:', resSearch.body.resources?.[0]?.name);
+
+  // 11. GET /api/resources/invalid-id (Expect 404)
+  const resInvalid = await request({ host: 'localhost', port: 3000, path: '/api/resources/non-existent-id', method: 'GET' });
+  console.log('GET /api/resources/non-existent-id ->', resInvalid.status, resInvalid.status === 404 ? 'OK (404 Not Found)' : 'FAIL');
+
+  // 12. GET /api/unknown-endpoint (Expect 404)
+  const apiUnknown = await request({ host: 'localhost', port: 3000, path: '/api/unknown-endpoint', method: 'GET' });
+  console.log('GET /api/unknown-endpoint ->', apiUnknown.status, apiUnknown.status === 404 ? 'OK (404 Not Found)' : 'FAIL');
+
+  // 13. Check all HTML pages (both .html and clean routes)
   const pages = ['index.html', 'assessment.html', 'chatbot.html', 'results.html', 'resources.html', 'about.html', 'privacy.html'];
   for (const page of pages) {
     const pRes = await request({ host: 'localhost', port: 3000, path: '/' + page, method: 'GET' });
     console.log(`PAGE /${page} -> Status:`, pRes.status, typeof pRes.body === 'string' && pRes.body.includes('SecretSaathi') ? 'OK (Brand present)' : 'MISSING BRAND');
+  }
+
+  // 14. Check clean URLs without .html extension
+  const cleanRoutes = ['assessment', 'chatbot', 'results', 'resources', 'about', 'privacy'];
+  for (const route of cleanRoutes) {
+    const cRes = await request({ host: 'localhost', port: 3000, path: '/' + route, method: 'GET' });
+    console.log(`CLEAN ROUTE /${route} -> Status:`, cRes.status, typeof cRes.body === 'string' && cRes.body.includes('SecretSaathi') ? 'OK' : 'FAIL');
   }
 
   console.log('--- ALL AUTOMATED TESTS FINISHED SUCCESSFULLY ---');

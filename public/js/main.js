@@ -1,9 +1,39 @@
 /**
- * SecretSaathi - Main Global JavaScript
- * Shared across all pages: mobile navigation, active link handling, utilities
+ * Safe DOM Ready helper that executes immediately if document is already parsed
  */
+function onReady(fn) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fn);
+  } else {
+    fn();
+  }
+}
 
-document.addEventListener('DOMContentLoaded', () => {
+/**
+ * Intelligent API endpoint resolver:
+ * - If running on Express port 3000, returns relative endpoint '/api/...'
+ * - If running on Live Server (e.g. 5500) or other port, targets 'http://hostname:3000/api/...'
+ * - If opened via file:/// protocol, targets 'http://localhost:3000/api/...'
+ */
+function getApiUrl(endpoint) {
+  try {
+    if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+      if (window.location.port && window.location.port !== '3000') {
+        const host = window.location.hostname || 'localhost';
+        return `http://${host}:3000${endpoint}`;
+      }
+      return endpoint;
+    }
+    return `http://localhost:3000${endpoint}`;
+  } catch (e) {
+    return endpoint;
+  }
+}
+
+window.onReady = onReady;
+window.getApiUrl = getApiUrl;
+
+onReady(() => {
   // 1. Mobile Menu Toggle
   const mobileToggle = document.getElementById('mobileToggle');
   const navLinks = document.getElementById('navLinks');
@@ -31,17 +61,19 @@ document.addEventListener('DOMContentLoaded', () => {
  * Automatically sets .active on the current page's navbar link
  */
 function highlightActiveNavLink() {
-  const currentPath = window.location.pathname.toLowerCase();
-  const navLinks = document.querySelectorAll('.nav-link');
+  const pathname = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+  const cleanCurrent = pathname.endsWith('.html') ? pathname.slice(0, -5) : pathname;
+  const isHome = cleanCurrent === '' || cleanCurrent === '/' || cleanCurrent === '/index';
 
+  const navLinks = document.querySelectorAll('.nav-link');
   navLinks.forEach(link => {
-    const href = link.getAttribute('href').toLowerCase();
-    
-    // Exact or matching page check
-    if (
-      (currentPath.endsWith(href) && href !== 'index.html' && href !== '/') ||
-      ((currentPath.endsWith('/') || currentPath.endsWith('index.html')) && (href === 'index.html' || href === '/'))
-    ) {
+    link.classList.remove('active');
+    const href = (link.getAttribute('href') || '').toLowerCase();
+    const cleanHref = href.replace(/\.html$/, '').replace(/^\//, '');
+
+    if (isHome && (cleanHref === '' || cleanHref === 'index')) {
+      link.classList.add('active');
+    } else if (!isHome && cleanHref && (cleanCurrent === '/' + cleanHref || cleanCurrent.endsWith('/' + cleanHref))) {
       link.classList.add('active');
     }
   });
@@ -51,7 +83,7 @@ function highlightActiveNavLink() {
  * Utility: Safe HTML Escape to prevent injection
  */
 function escapeHTML(str) {
-  if (!str) return '';
+  if (str === null || str === undefined) return '';
   return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -59,3 +91,6 @@ function escapeHTML(str) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
+
+// Expose globally
+window.escapeHTML = escapeHTML;

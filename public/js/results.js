@@ -3,7 +3,25 @@
  * Renders calculated stress indicators, suggestions, and personalized resources
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+const escapeHTML = window.escapeHTML || function(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+};
+
+const onReady = window.onReady || function(fn) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fn);
+  } else {
+    fn();
+  }
+};
+
+onReady(() => {
   loadResults();
 });
 
@@ -20,6 +38,10 @@ function loadResults() {
 
   try {
     const data = JSON.parse(stored);
+    if (!data || data.totalScore === undefined) {
+      throw new Error('Invalid stored data structure');
+    }
+
     if (noResultEl) noResultEl.style.display = 'none';
     if (resultContentEl) resultContentEl.style.display = 'block';
 
@@ -40,6 +62,8 @@ function renderResultsData(data) {
   const scoreEl = document.getElementById('scoreText');
   const summaryEl = document.getElementById('summaryText');
   const explanationEl = document.getElementById('explanationText');
+  const scoreMarkerEl = document.getElementById('scoreMarker');
+  const markerValEl = document.getElementById('markerValue');
 
   const tag = data.tag || 'Assessment Result';
   const categoryName = data.category || 'Stress Indicator';
@@ -53,6 +77,17 @@ function renderResultsData(data) {
 
   if (scoreEl) {
     scoreEl.textContent = `Score: ${totalScore} / ${maxScore}`;
+  }
+
+  // Position visual marker on score track (bounded between 2% and 98%)
+  if (scoreMarkerEl) {
+    const rawPct = (totalScore / maxScore) * 100;
+    const clampedPct = Math.max(3, Math.min(97, rawPct));
+    scoreMarkerEl.style.left = `${clampedPct}%`;
+  }
+
+  if (markerValEl) {
+    markerValEl.textContent = `${totalScore}`;
   }
 
   if (summaryEl) {

@@ -100,7 +100,25 @@ const MAIN_OPTIONS = [
   { label: "Find Support", key: "support" }
 ];
 
-document.addEventListener('DOMContentLoaded', () => {
+const escapeHTML = window.escapeHTML || function(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+};
+
+const onReady = window.onReady || function(fn) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fn);
+  } else {
+    fn();
+  }
+};
+
+onReady(() => {
   initChatbot();
 });
 
@@ -152,6 +170,7 @@ function renderQuickOptionChips() {
   quickOptionsEl.innerHTML = '';
   MAIN_OPTIONS.forEach(opt => {
     const chip = document.createElement('button');
+    chip.type = 'button';
     chip.className = 'quick-chip';
     chip.textContent = opt.label;
     chip.addEventListener('click', () => {
@@ -171,35 +190,44 @@ function renderQuickOptionChips() {
 function handleOptionSelection(label, key) {
   // Append user bubble
   appendUserMessage(label);
+  showTypingIndicator();
 
   // Bot response after short natural delay
   setTimeout(() => {
-    if (key === 'menu') {
-      renderBotGreeting();
-      return;
+    removeTypingIndicator();
+    respondToTopic(key);
+  }, 450);
+}
+
+/**
+ * Renders bot response for a specific knowledge base key
+ */
+function respondToTopic(key) {
+  if (key === 'menu') {
+    renderBotGreeting();
+    return;
+  }
+
+  const topic = CHATBOT_KNOWLEDGE_BASE[key];
+  if (topic) {
+    let html = `<p><strong>${escapeHTML(topic.title)}</strong></p>`;
+    html += `<p style="margin-top: 6px;">${escapeHTML(topic.text)}</p>`;
+    
+    if (topic.suggestions && topic.suggestions.length > 0) {
+      html += `<ul style="margin: 8px 0 8px 18px; font-size: 0.88rem;">`;
+      topic.suggestions.forEach(s => {
+        html += `<li>${escapeHTML(s)}</li>`;
+      });
+      html += `</ul>`;
     }
 
-    const topic = CHATBOT_KNOWLEDGE_BASE[key];
-    if (topic) {
-      let html = `<p><strong>${escapeHTML(topic.title)}</strong></p>`;
-      html += `<p style="margin-top: 6px;">${escapeHTML(topic.text)}</p>`;
-      
-      if (topic.suggestions && topic.suggestions.length > 0) {
-        html += `<ul style="margin: 8px 0 8px 18px; font-size: 0.88rem;">`;
-        topic.suggestions.forEach(s => {
-          html += `<li>${escapeHTML(s)}</li>`;
-        });
-        html += `</ul>`;
-      }
-
-      appendBotMessage(html, topic.actions);
-    } else {
-      appendBotMessage(
-        "I'm here to assist you with student well-being topics. Please select an area you'd like to explore:",
-        MAIN_OPTIONS
-      );
-    }
-  }, 350);
+    appendBotMessage(html, topic.actions);
+  } else {
+    appendBotMessage(
+      "I'm here to assist you with student well-being topics. Please select an area you'd like to explore:",
+      MAIN_OPTIONS
+    );
+  }
 }
 
 /**
@@ -217,49 +245,102 @@ function handleUserSend() {
 
   // Append user message
   appendUserMessage(rawText);
+  showTypingIndicator();
 
-  // Bot processes query
+  // Bot processes query without adding a duplicate user bubble
   setTimeout(() => {
+    removeTypingIndicator();
     processUserInput(rawText);
-  }, 400);
+  }, 500);
 }
+
+window.handleUserSend = handleUserSend;
 
 function processUserInput(text) {
   const q = text.toLowerCase();
 
+  // 1. Safety & Crisis keywords check
+  if (q.includes('suicid') || q.includes('kill myself') || q.includes('end my life') || q.includes('die') || q.includes('self-harm') || q.includes('harm myself')) {
+    appendBotMessage(
+      `<div style="color: #991b1b; font-weight: 600; margin-bottom: 6px;">&#9888; Immediate Confidential Support Available</div>
+       <p>If you are experiencing acute emotional pain or having thoughts of self-harm, please know that you are not alone and free, confidential support is available right now:</p>
+       <ul style="margin: 8px 0 8px 18px; font-size: 0.9rem;">
+         <li><strong>Tele-MANAS (Govt. of India):</strong> Call <a href="tel:14416" style="color:var(--teal); font-weight:700;">14416</a> (24/7 Toll-Free)</li>
+         <li><strong>KIRAN Helpline:</strong> Call <a href="tel:18005990019" style="color:var(--teal); font-weight:700;">1800-599-0019</a> (24/7 Toll-Free)</li>
+         <li><strong>National Emergency Services:</strong> Call <a href="tel:112" style="color:#991b1b; font-weight:700;">112</a></li>
+       </ul>
+       <p style="margin-top: 6px;">Please reach out to one of these free helplines or contact a trusted friend or counsellor.</p>`,
+      [
+        { text: "View Emergency Support", url: "resources.html?category=Emergency%20Support" },
+        { text: "Return to Menu", action: "menu" }
+      ]
+    );
+    return;
+  }
+
+  // 2. Thematic keyword routing
   if (q.includes('exam') || q.includes('study') || q.includes('academic') || q.includes('assignment') || q.includes('grade') || q.includes('marks')) {
-    handleOptionSelection("Academic Stress", "academic");
+    respondToTopic("academic");
   } else if (q.includes('overwhelm') || q.includes('stress') || q.includes('pressure') || q.includes('burnout') || q.includes('tired')) {
-    handleOptionSelection("Feeling Overwhelmed", "overwhelmed");
+    respondToTopic("overwhelmed");
   } else if (q.includes('sleep') || q.includes('insomnia') || q.includes('rest') || q.includes('night') || q.includes('wake')) {
-    handleOptionSelection("Sleep & Rest", "sleep");
+    respondToTopic("sleep");
   } else if (q.includes('lonel') || q.includes('alone') || q.includes('friend') || q.includes('isolate') || q.includes('connect')) {
-    handleOptionSelection("Loneliness", "loneliness");
+    respondToTopic("loneliness");
   } else if (q.includes('personal') || q.includes('family') || q.includes('relation') || q.includes('money') || q.includes('finance')) {
-    handleOptionSelection("Personal Concerns", "personal");
+    respondToTopic("personal");
   } else if (q.includes('assess') || q.includes('test') || q.includes('quiz') || q.includes('score') || q.includes('indicator')) {
     appendBotMessage(
-      "You can begin our non-diagnostic 10-question self-assessment right now. It takes about 2-3 minutes.",
+      "You can take our non-diagnostic 10-question self-assessment right now. It takes about 2-3 minutes.",
       [
         { text: "Start Self-Assessment &rarr;", url: "assessment.html" },
         { text: "Return to Menu", action: "menu" }
       ]
     );
   } else if (q.includes('help') || q.includes('resource') || q.includes('counsel') || q.includes('contact') || q.includes('call') || q.includes('number')) {
-    handleOptionSelection("Find Support", "support");
+    respondToTopic("support");
   } else {
     // Helpful default response
     appendBotMessage(
-      `Thank you for sharing. SecretSaathi is a predefined informational tool for student well-being. While I cannot provide medical diagnoses or therapy, here are common areas I can assist you with:`,
+      `Thank you for sharing. SecretSaathi is a non-diagnostic informational companion for student well-being. While I cannot offer therapy, here are common areas we can explore:`,
       MAIN_OPTIONS
     );
   }
 }
 
 /**
+ * Display typing indicator
+ */
+function showTypingIndicator() {
+  const chatMessages = document.getElementById('chatMessages');
+  if (!chatMessages) return;
+
+  removeTypingIndicator();
+
+  const typingRow = document.createElement('div');
+  typingRow.id = 'typingIndicatorRow';
+  typingRow.className = 'message-row message-bot';
+  typingRow.innerHTML = `
+    <div class="message-bubble typing-bubble" aria-label="SecretSaathi is typing">
+      <span class="typing-dot"></span>
+      <span class="typing-dot"></span>
+      <span class="typing-dot"></span>
+    </div>
+  `;
+  chatMessages.appendChild(typingRow);
+  scrollToBottom();
+}
+
+function removeTypingIndicator() {
+  const row = document.getElementById('typingIndicatorRow');
+  if (row) row.remove();
+}
+
+/**
  * Append bot message bubble with optional action buttons
  */
 function appendBotMessage(htmlContent, actionButtons = []) {
+  removeTypingIndicator();
   const chatMessages = document.getElementById('chatMessages');
   if (!chatMessages) return;
 
@@ -273,9 +354,9 @@ function appendBotMessage(htmlContent, actionButtons = []) {
       if (btn.url) {
         actionsHtml += `<a href="${btn.url}" class="btn btn-outline-primary btn-sm">${escapeHTML(btn.text || btn.label)}</a>`;
       } else if (btn.action === 'menu') {
-        actionsHtml += `<button class="btn btn-secondary btn-sm action-btn-menu">${escapeHTML(btn.text || 'Menu')}</button>`;
+        actionsHtml += `<button type="button" class="btn btn-secondary btn-sm action-btn-menu">${escapeHTML(btn.text || 'Menu')}</button>`;
       } else if (btn.key) {
-        actionsHtml += `<button class="btn btn-secondary btn-sm action-btn-topic" data-key="${btn.key}" data-label="${escapeHTML(btn.label || btn.text)}">${escapeHTML(btn.label || btn.text)}</button>`;
+        actionsHtml += `<button type="button" class="btn btn-secondary btn-sm action-btn-topic" data-key="${btn.key}" data-label="${escapeHTML(btn.label || btn.text)}">${escapeHTML(btn.label || btn.text)}</button>`;
       }
     });
     actionsHtml += `</div>`;
@@ -294,7 +375,7 @@ function appendBotMessage(htmlContent, actionButtons = []) {
   // Attach button event listeners
   row.querySelectorAll('.action-btn-menu').forEach(btn => {
     btn.addEventListener('click', () => {
-      renderBotGreeting();
+      handleOptionSelection("Return to Main Menu", "menu");
     });
   });
 
