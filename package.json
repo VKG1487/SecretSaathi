@@ -1,0 +1,22 @@
+{
+  "name": "secret-saathi",
+  "version": "1.0.0",
+  "description": "A non-diagnostic student well-being self-assessment and support web application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "student-wellbeing",
+    "self-assessment",
+    "stress-indicator",
+    "mental-health-support",
+    "express"
+  ],
+  "author": "Vibhash Kumar Giri, Ankit Kumar, Samik, Krishna Mahajan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

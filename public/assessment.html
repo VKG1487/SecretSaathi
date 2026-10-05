@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Self-Assessment - SecretSaathi</title>
+  <meta name="description" content="Take a short, confidential, non-diagnostic student stress indicator self-assessment to reflect on study habits, sleep, focus, and well-being.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-wrapper" aria-label="SecretSaathi Home">
+        <div class="brand-icon">SS</div>
+        <div class="brand-text">
+          <span class="brand-title">SecretSaathi</span>
+          <span class="brand-tagline">Talk. Assess. Get Support.</span>
+        </div>
+      </a>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        &#9776;
+      </button>
+
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="assessment.html" class="nav-link active">Self-Assessment</a></li>
+          <li><a href="chatbot.html" class="nav-link">Chat</a></li>
+          <li><a href="resources.html" class="nav-link">Resources</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="assessment-wrapper">
+    <!-- Non-Diagnostic Alert Callout -->
+    <div class="disclaimer-banner" role="alert">
+      <span class="disclaimer-icon">&#9432;</span>
+      <div>
+        <strong>Self-Reflection Only:</strong> This assessment is not a medical or psychological diagnosis. It is designed to help you reflect on common student stress indicators and connect with helpful support resources.
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loadingState" style="text-align: center; padding: 40px 0; color: var(--text-muted);">
+      <p>Loading assessment questions...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorState" class="alert-validation" style="display: none;"></div>
+
+    <!-- Assessment Card (Populated by JS) -->
+    <div class="assessment-card" id="assessmentCard" style="display: none;">
+      <!-- Progress Bar -->
+      <div class="progress-header">
+        <div class="progress-meta">
+          <span id="progressLabel" style="font-weight: 600;">Question 1 of 10</span>
+          <span id="progressPercent">10%</span>
+        </div>
+        <div class="progress-bar-bg" aria-hidden="true">
+          <div class="progress-bar-fill" id="progressBarFill" style="width: 10%;"></div>
+        </div>
+      </div>
+
+      <!-- Question Header -->
+      <div class="question-container">
+        <span class="question-category-tag" id="questionCategory">Academic Pressure</span>
+        <h2 class="question-title" id="questionTitle">Loading question...</h2>
+        <p class="question-hint" id="questionHint"></p>
+      </div>
+
+      <!-- Inline Validation Alert -->
+      <div class="alert-validation" id="validationAlert" role="alert">
+        Please select an answer option to proceed.
+      </div>
+
+      <!-- Response Radio Options -->
+      <div class="options-list" id="optionsList" role="radiogroup" aria-labelledby="questionTitle">
+        <!-- Injected dynamically by assessment.js -->
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="assessment-nav">
+        <button type="button" class="btn btn-secondary" id="prevBtn" disabled>
+          &larr; Previous
+        </button>
+        <button type="button" class="btn btn-primary" id="nextBtn">
+          Next Question &rarr;
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer (MANDATORY ON EVERY PAGE) -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>SecretSaathi</h3>
+        <p class="footer-tagline">Student Well-being &amp; Support Platform</p>
+        <p class="footer-copy">&copy; 2026 SecretSaathi. All rights reserved.</p>
+      </div>
+
+      <div class="footer-team">
+        <h4>Project Team</h4>
+        <p><strong>Main Developer:</strong> Vibhash Kumar Giri</p>
+        <p><strong>Other Developers:</strong> Ankit Kumar, Samik, Krishna Mahajan</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="privacy.html#disclaimer">Disclaimer</a></li>
+          <li><a href="resources.html">Resources</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      SecretSaathi is a non-diagnostic academic project built with HTML5, CSS3, Vanilla JavaScript, and Express.js.
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/assessment.js"></script>
+</body>
+</html>

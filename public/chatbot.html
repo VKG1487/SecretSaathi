@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat with SecretSaathi - Student Support Bot</title>
+  <meta name="description" content="Talk with SecretSaathi, a simple rule-based student well-being companion offering structured guidance on academic stress, burnout, and resources.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-wrapper" aria-label="SecretSaathi Home">
+        <div class="brand-icon">SS</div>
+        <div class="brand-text">
+          <span class="brand-title">SecretSaathi</span>
+          <span class="brand-tagline">Talk. Assess. Get Support.</span>
+        </div>
+      </a>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        &#9776;
+      </button>
+
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="assessment.html" class="nav-link">Self-Assessment</a></li>
+          <li><a href="chatbot.html" class="nav-link active">Chat</a></li>
+          <li><a href="resources.html" class="nav-link">Resources</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="chatbot-wrapper">
+    <!-- Non-Diagnostic Chatbot Disclaimer -->
+    <div class="disclaimer-banner" role="alert">
+      <span class="disclaimer-icon">&#9432;</span>
+      <div>
+        <strong>Notice:</strong> SecretSaathi Chatbot is a rule-based informational assistant, <u>not</u> a human counsellor, clinical therapist, or medical professional. In an emergency, please call 112 or contact the Tele-MANAS helpline at 14416.
+      </div>
+    </div>
+
+    <!-- Chat Card -->
+    <div class="chat-card">
+      <!-- Chat Header -->
+      <div class="chat-header">
+        <div class="chat-bot-info">
+          <div class="bot-avatar">SS</div>
+          <div class="bot-meta">
+            <h3>SecretSaathi Guide</h3>
+            <span>Predefined Rule-Based Support Companion</span>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-secondary btn-sm" id="clearChatBtn" title="Reset chat conversation">
+          &#8635; Clear Chat
+        </button>
+      </div>
+
+      <!-- Messages History Container -->
+      <div class="chat-messages" id="chatMessages" role="log" aria-live="polite">
+        <!-- Messages dynamically injected by chatbot.js -->
+      </div>
+
+      <!-- Quick Topic Chips -->
+      <div class="chat-quick-options" id="chatQuickOptions" aria-label="Quick topic prompts">
+        <!-- Injected dynamically by chatbot.js -->
+      </div>
+
+      <!-- Chat Input Form -->
+      <div class="chat-input-bar">
+        <input 
+          type="text" 
+          id="chatInput" 
+          class="chat-input" 
+          placeholder="Type a topic (e.g. exam stress, sleep, loneliness)..." 
+          aria-label="Message to SecretSaathi"
+          autocomplete="off"
+        >
+        <button type="button" class="btn btn-primary" id="sendBtn" aria-label="Send message">
+          Send &#10148;
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Site Footer (MANDATORY ON EVERY PAGE) -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>SecretSaathi</h3>
+        <p class="footer-tagline">Student Well-being &amp; Support Platform</p>
+        <p class="footer-copy">&copy; 2026 SecretSaathi. All rights reserved.</p>
+      </div>
+
+      <div class="footer-team">
+        <h4>Project Team</h4>
+        <p><strong>Main Developer:</strong> Vibhash Kumar Giri</p>
+        <p><strong>Other Developers:</strong> Ankit Kumar, Samik, Krishna Mahajan</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="privacy.html#disclaimer">Disclaimer</a></li>
+          <li><a href="resources.html">Resources</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      SecretSaathi is a non-diagnostic academic project built with HTML5, CSS3, Vanilla JavaScript, and Express.js.
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

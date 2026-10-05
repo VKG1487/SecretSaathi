@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About SecretSaathi - Student Well-being Initiative</title>
+  <meta name="description" content="Learn about the origin, mission, and development team behind SecretSaathi, an approachable student well-being self-reflection web application.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-wrapper" aria-label="SecretSaathi Home">
+        <div class="brand-icon">SS</div>
+        <div class="brand-text">
+          <span class="brand-title">SecretSaathi</span>
+          <span class="brand-tagline">Talk. Assess. Get Support.</span>
+        </div>
+      </a>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        &#9776;
+      </button>
+
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="assessment.html" class="nav-link">Self-Assessment</a></li>
+          <li><a href="chatbot.html" class="nav-link">Chat</a></li>
+          <li><a href="resources.html" class="nav-link">Resources</a></li>
+          <li><a href="about.html" class="nav-link active">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container section">
+    <div class="content-box">
+      <!-- Section 1: Overview -->
+      <article class="content-section">
+        <h1>About SecretSaathi</h1>
+        <p style="font-size: 1.05rem; color: var(--text-main); font-weight: 500; margin-top: 10px;">
+          SecretSaathi is a non-diagnostic student well-being self-assessment and resource navigation platform designed to bridge the gap between student hesitation and timely support.
+        </p>
+        <p>
+          In college and university environments, students frequently encounter multifaceted pressures—from demanding coursework deadlines, competition, and examination anxiety to interpersonal shifts, financial constraints, and feelings of isolation. While many institutions maintain student counselling and welfare offices, students often delay seeking help because they are unsure if their stress is "serious enough" or fear social stigma.
+        </p>
+      </article>
+
+      <!-- Section 2: The Problem -->
+      <article class="content-section">
+        <h2>The Challenge</h2>
+        <p>
+          Students often navigate heavy emotional burdens alone due to several common barriers:
+        </p>
+        <ul>
+          <li><strong>Hesitation to reach out:</strong> Difficulty articulating feelings or wondering whether daily pressure warrants formal support.</li>
+          <li><strong>Fragmented information:</strong> Unawareness of available campus wellness cells, grievance mechanisms, or national 24/7 tele-health helplines.</li>
+          <li><strong>Fear of judgment:</strong> Concerns regarding privacy, confidentiality, and institutional record-keeping.</li>
+          <li><strong>Overwhelming clinical language:</strong> Being confronted with intimidating medical jargon rather than calm, approachable self-reflection tools.</li>
+        </ul>
+      </article>
+
+      <!-- Section 3: The Solution -->
+      <article class="content-section">
+        <h2>Our Solution</h2>
+        <p>
+          SecretSaathi serves as an approachable, private, and confidential first step:
+        </p>
+        <ul>
+          <li><strong>Anonymous Self-Reflection:</strong> A structured 10-question self-assessment covering academic pressure, rest patterns, focus, and social connection.</li>
+          <li><strong>Non-Diagnostic Indicators:</strong> Transparent categorization (Low, Moderate, High) with grounded, practical lifestyle suggestions rather than medical labels.</li>
+          <li><strong>Guided Rule-Based Chat:</strong> A focused conversational interface that helps students navigate recurring concerns without presenting itself as a clinical therapist.</li>
+          <li><strong>Centralized Resource Directory:</strong> Searchable listings of both verified national crisis helplines and campus support contacts.</li>
+        </ul>
+      </article>
+
+      <!-- Section 4: Project Team -->
+      <article class="content-section">
+        <h2>Project Team</h2>
+        <p>
+          SecretSaathi was conceptualized, designed, and developed as an academic software engineering project.
+        </p>
+
+        <div class="team-grid">
+          <div class="team-card main-dev">
+            <div class="team-role">Lead / Main Developer</div>
+            <div class="team-name">Vibhash Kumar Giri</div>
+            <div class="team-meta">Full-Stack Architecture, Express Backend &amp; Frontend Implementation</div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-role">Developer</div>
+            <div class="team-name">Ankit Kumar</div>
+            <div class="team-meta">System Design, Data Schemas &amp; Scoring Logic</div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-role">Developer</div>
+            <div class="team-name">Samik</div>
+            <div class="team-meta">UI/UX Layouts, Accessibility &amp; Responsive Styles</div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-role">Developer</div>
+            <div class="team-name">Krishna Mahajan</div>
+            <div class="team-meta">Resource Verification, Testing &amp; Rule-Based Dialogs</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Section 5: Technology Stack -->
+      <article class="content-section">
+        <h2>Technology Stack</h2>
+        <p>
+          SecretSaathi is deliberately built using clean, vanilla, and transparent technologies without heavy external frameworks:
+        </p>
+        <ul>
+          <li><strong>Frontend:</strong> Semantic HTML5, Vanilla CSS3 (custom responsive design system), Vanilla JavaScript (ES6+).</li>
+          <li><strong>Backend:</strong> Node.js and Express.js REST API service.</li>
+          <li><strong>Data Storage:</strong> Lightweight, editable JSON data structures (<code>questions.json</code>, <code>resources.json</code>, <code>config.json</code>).</li>
+          <li><strong>Privacy Architecture:</strong> Client-side session state; zero database persistence of student scores or identities.</li>
+        </ul>
+      </article>
+    </div>
+  </main>
+
+  <!-- Site Footer (MANDATORY ON EVERY PAGE) -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>SecretSaathi</h3>
+        <p class="footer-tagline">Student Well-being &amp; Support Platform</p>
+        <p class="footer-copy">&copy; 2026 SecretSaathi. All rights reserved.</p>
+      </div>
+
+      <div class="footer-team">
+        <h4>Project Team</h4>
+        <p><strong>Main Developer:</strong> Vibhash Kumar Giri</p>
+        <p><strong>Other Developers:</strong> Ankit Kumar, Samik, Krishna Mahajan</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="privacy.html#disclaimer">Disclaimer</a></li>
+          <li><a href="resources.html">Resources</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      SecretSaathi is a non-diagnostic academic project built with HTML5, CSS3, Vanilla JavaScript, and Express.js.
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support Resources Directory - SecretSaathi</title>
+  <meta name="description" content="Explore campus counselling services, peer mentorship, student well-being cells, and verified 24/7 national helplines.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-wrapper" aria-label="SecretSaathi Home">
+        <div class="brand-icon">SS</div>
+        <div class="brand-text">
+          <span class="brand-title">SecretSaathi</span>
+          <span class="brand-tagline">Talk. Assess. Get Support.</span>
+        </div>
+      </a>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        &#9776;
+      </button>
+
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="assessment.html" class="nav-link">Self-Assessment</a></li>
+          <li><a href="chatbot.html" class="nav-link">Chat</a></li>
+          <li><a href="resources.html" class="nav-link active">Resources</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container section">
+    <div class="resources-header">
+      <h1 class="section-title">Support &amp; Counselling Resources</h1>
+      <p class="section-desc">
+        Access confidential student support services, campus counselling cells, and verified national crisis helplines.
+      </p>
+    </div>
+
+    <!-- Non-Diagnostic Notice -->
+    <div class="disclaimer-banner" role="alert">
+      <span class="disclaimer-icon">&#9432;</span>
+      <div>
+        <strong>Emergency Resources:</strong> If you or someone you know is in immediate physical danger or severe crisis, please call <strong>112</strong> (National Emergency) or <strong>14416</strong> (Tele-MANAS Mental Health Helpline, 24/7 Toll-Free).
+      </div>
+    </div>
+
+    <!-- Filter & Search Bar -->
+    <div class="filter-bar">
+      <!-- Search input -->
+      <div class="search-input-wrapper">
+        <input 
+          type="text" 
+          id="resourceSearch" 
+          class="search-input" 
+          placeholder="Search by keyword, service name, category, or location..."
+          aria-label="Search resources"
+        >
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="category-pills" role="tablist" aria-label="Filter by category">
+        <button type="button" class="filter-pill active" data-category="All">All Categories</button>
+        <button type="button" class="filter-pill" data-category="College Counselling">College Counselling</button>
+        <button type="button" class="filter-pill" data-category="Student Support">Student Support</button>
+        <button type="button" class="filter-pill" data-category="Mental Well-being">Mental Well-being</button>
+        <button type="button" class="filter-pill" data-category="Helpline">Helpline</button>
+        <button type="button" class="filter-pill" data-category="Emergency Support">Emergency Support</button>
+        <button type="button" class="filter-pill" data-category="General Support">General Support</button>
+      </div>
+    </div>
+
+    <!-- Active Count Summary -->
+    <div class="resources-count-bar">
+      <span id="resourcesCount">Loading resources...</span>
+      <span style="font-size: 0.8rem; color: var(--text-light);">Free &amp; Confidential</span>
+    </div>
+
+    <!-- Loading State -->
+    <div id="resourcesLoading" style="text-align: center; padding: 40px; color: var(--text-muted);">
+      <p>Fetching resources from directory...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="resourcesError" class="alert-validation" style="display: none;"></div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="empty-state" style="display: none;">
+      <h3>No matching resources found</h3>
+      <p>We couldn't find any resources matching your search criteria. Try modifying your keywords or resetting category filters.</p>
+      <button type="button" class="btn btn-secondary btn-sm" onclick="resetResourceFilters()">Reset Filters</button>
+    </div>
+
+    <!-- Resources Grid -->
+    <div class="resources-grid" id="resourcesGrid">
+      <!-- Injected dynamically by resources.js -->
+    </div>
+  </main>
+
+  <!-- Site Footer (MANDATORY ON EVERY PAGE) -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>SecretSaathi</h3>
+        <p class="footer-tagline">Student Well-being &amp; Support Platform</p>
+        <p class="footer-copy">&copy; 2026 SecretSaathi. All rights reserved.</p>
+      </div>
+
+      <div class="footer-team">
+        <h4>Project Team</h4>
+        <p><strong>Main Developer:</strong> Vibhash Kumar Giri</p>
+        <p><strong>Other Developers:</strong> Ankit Kumar, Samik, Krishna Mahajan</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="privacy.html#disclaimer">Disclaimer</a></li>
+          <li><a href="resources.html">Resources</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      SecretSaathi is a non-diagnostic academic project built with HTML5, CSS3, Vanilla JavaScript, and Express.js.
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/resources.js"></script>
+</body>
+</html>

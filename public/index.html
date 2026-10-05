@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecretSaathi - Student Well-being Self-Assessment & Support</title>
+  <meta name="description" content="SecretSaathi is a non-diagnostic student well-being self-assessment platform providing stress indicator reflection, guided conversations, and campus support resources.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-wrapper" aria-label="SecretSaathi Home">
+        <div class="brand-icon">SS</div>
+        <div class="brand-text">
+          <span class="brand-title">SecretSaathi</span>
+          <span class="brand-tagline">Talk. Assess. Get Support.</span>
+        </div>
+      </a>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        &#9776;
+      </button>
+
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="assessment.html" class="nav-link">Self-Assessment</a></li>
+          <li><a href="chatbot.html" class="nav-link">Chat</a></li>
+          <li><a href="resources.html" class="nav-link">Resources</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="assessment.html" class="btn btn-sm nav-cta">Start Assessment</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-content">
+        <span class="hero-subtitle-tag">Confidential &amp; Student-Centric</span>
+        <h1 class="hero-title">A simple first step toward understanding how you're feeling.</h1>
+        <p class="hero-desc">
+          SecretSaathi helps students reflect on common stress indicators through a short, non-diagnostic self-assessment and connects them with appropriate support resources.
+        </p>
+
+        <div class="hero-actions">
+          <a href="assessment.html" class="btn btn-primary" id="startAssessmentBtn">Start Self-Assessment &rarr;</a>
+          <a href="resources.html" class="btn btn-secondary" id="exploreResourcesBtn">Explore Resources</a>
+        </div>
+
+        <p class="hero-disclaimer">
+          <em>SecretSaathi is not a medical diagnostic service. It provides general awareness and support-resource information.</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- Quick Non-Diagnostic Notice -->
+    <div class="container">
+      <div class="disclaimer-banner" role="alert">
+        <span class="disclaimer-icon">&#9432;</span>
+        <div>
+          <strong>Important Notice:</strong> SecretSaathi does not provide medical diagnoses, psychological treatment, or crisis intervention. If you are experiencing acute distress or need immediate medical assistance, please contact national emergency services (112) or call the Tele-MANAS helpline (14416).
+        </div>
+      </div>
+    </div>
+
+    <!-- How SecretSaathi Works -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">How SecretSaathi Works</h2>
+          <p class="section-desc">A step-by-step pathway from quiet student hesitation to personalized guidance and appropriate campus or community support.</p>
+        </div>
+
+        <div class="flow-container">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <h4>Student Concern</h4>
+            <p>Experiencing pressure, worry, fatigue, or loneliness.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <h4>Self-Reflection</h4>
+            <p>Taking a pause to acknowledge and articulate feelings.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <h4>Self-Assessment</h4>
+            <p>Answering 10 simple questions on common student pressures.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+
+          <div class="flow-step">
+            <div class="step-num">4</div>
+            <h4>Stress Indicator</h4>
+            <p>Viewing a non-clinical Low, Moderate, or High indicator.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+
+          <div class="flow-step">
+            <div class="step-num">5</div>
+            <h4>General Guidance</h4>
+            <p>Reviewing practical, balanced daily wellness suggestions.</p>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+
+          <div class="flow-step">
+            <div class="step-num">6</div>
+            <h4>Appropriate Support</h4>
+            <p>Connecting with campus cells or verified national helplines.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Features Section -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Core Features</h2>
+          <p class="section-desc">Designed with student privacy, accessibility, and clarity at its foundation.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">&#128172;</div>
+            <h3>Talk</h3>
+            <p>A simple conversational interface for students with guided rule-based discussions on academic pressure, burnout, and loneliness.</p>
+            <a href="chatbot.html" class="feature-link">Chat with SecretSaathi &rarr;</a>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">&#9997;</div>
+            <h3>Assess</h3>
+            <p>A short, predefined 10-question self-assessment examining study stress, sleep quality, focus, and emotional fatigue.</p>
+            <a href="assessment.html" class="feature-link">Take Assessment &rarr;</a>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">&#128202;</div>
+            <h3>Understand</h3>
+            <p>Receive a simple stress-indicator category (Low, Moderate, or High) accompanied by clear, non-stigmatizing explanations.</p>
+            <a href="assessment.html" class="feature-link">Learn About Scoring &rarr;</a>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">&#129309;</div>
+            <h3>Get Support</h3>
+            <p>Find relevant support resources, from confidential campus wellness cells to 24/7 verified national tele-health services.</p>
+            <a href="resources.html" class="feature-link">Browse Resources &rarr;</a>
+          </div>
+        </div>
+
+        <div class="notice-box">
+          <div class="notice-text">
+            <h4>No Account or Registration Needed</h4>
+            <p>SecretSaathi respects student privacy. All self-assessments run completely anonymously without collecting emails, phone numbers, or profile information.</p>
+          </div>
+          <a href="privacy.html" class="btn btn-secondary btn-sm">Read Privacy Commitment</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer (MANDATORY ON EVERY PAGE) -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>SecretSaathi</h3>
+        <p class="footer-tagline">Student Well-being &amp; Support Platform</p>
+        <p class="footer-copy">&copy; 2026 SecretSaathi. All rights reserved.</p>
+      </div>
+
+      <div class="footer-team">
+        <h4>Project Team</h4>
+        <p><strong>Main Developer:</strong> Vibhash Kumar Giri</p>
+        <p><strong>Other Developers:</strong> Ankit Kumar, Samik, Krishna Mahajan</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="privacy.html#disclaimer">Disclaimer</a></li>
+          <li><a href="resources.html">Resources</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      SecretSaathi is a non-diagnostic academic project built with HTML5, CSS3, Vanilla JavaScript, and Express.js.
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "tele-manas",
+    "name": "Tele-MANAS (National Mental Health Helpline)",
+    "category": "Helpline",
+    "type": "National Verified Helpline",
+    "description": "Comprehensive, 24/7, free tele-mental health support provided by the Government of India, offering multi-lingual psychological first aid and counselling.",
+    "phone": "14416",
+    "website": "https://telemanas.mohfw.gov.in/",
+    "availability": "24/7 Toll-Free",
+    "location": "National (India)",
+    "isDemo": false
+  },
+  {
+    "id": "kiran-helpline",
+    "name": "KIRAN Mental Health Helpline",
+    "category": "Helpline",
+    "type": "National Verified Helpline",
+    "description": "24/7 toll-free mental health rehabilitation helpline established by the Ministry of Social Justice and Empowerment for distress management and psychological support.",
+    "phone": "1800-599-0019",
+    "website": "https://depwd.gov.in/",
+    "availability": "24/7 Toll-Free",
+    "location": "National (India)",
+    "isDemo": false
+  },
+  {
+    "id": "vandrevala-foundation",
+    "name": "Vandrevala Foundation Helpline",
+    "category": "Mental Well-being",
+    "type": "Verified Non-Profit Support",
+    "description": "Free, confidential emotional support and psychological counselling for individuals experiencing acute stress, relationship issues, anxiety, or depression.",
+    "phone": "+91 9999 666 555",
+    "website": "https://www.vandrevalafoundation.com/",
+    "availability": "24/7 Free Support",
+    "location": "National (India)",
+    "isDemo": false
+  },
+  {
+    "id": "national-emergency-112",
+    "name": "National Emergency Support (112)",
+    "category": "Emergency Support",
+    "type": "National Emergency Service",
+    "description": "All-in-one emergency response helpline in India for urgent situations, safety emergencies, or immediate medical crises.",
+    "phone": "112",
+    "website": "https://112.gov.in/",
+    "availability": "24/7 Emergency Service",
+    "location": "National (India)",
+    "isDemo": false
+  },
+  {
+    "id": "campus-counselling-centre",
+    "name": "Campus Counselling & Well-being Centre",
+    "category": "College Counselling",
+    "type": "Campus Support (Demo / Template)",
+    "description": "On-campus confidential psychological counselling, stress-reduction workshops, and individual guidance sessions for enrolled college students.",
+    "phone": "+91 98765 43210",
+    "website": "https://example-college.edu/wellness",
+    "availability": "Mon - Fri, 9:00 AM - 5:00 PM",
+    "location": "Student Affairs Block, Room 104 (Campus)",
+    "isDemo": true
+  },
+  {
+    "id": "peer-support-network",
+    "name": "Student Peer Mentorship Network",
+    "category": "Student Support",
+    "type": "Campus Support (Demo / Template)",
+    "description": "Trained senior student mentors offering empathetic listening, academic navigation advice, and peer-to-peer orientation for juniors.",
+    "phone": "",
+    "website": "https://example-college.edu/peer-support",
+    "availability": "Mon - Sat, 10:00 AM - 6:00 PM",
+    "location": "Student Activity Centre (Campus)",
+    "isDemo": true
+  },
+  {
+    "id": "academic-advising-cell",
+    "name": "Academic Advising & Dean of Students",
+    "category": "General Support",
+    "type": "Campus Support (Demo / Template)",
+    "description": "Guidance on study load adjustments, exam scheduling dispensations, attendance queries, and student administrative grievances.",
+    "phone": "+91 98765 43211",
+    "website": "https://example-college.edu/advising",
+    "availability": "Mon - Fri, 10:00 AM - 4:00 PM",
+    "location": "Administrative Wing, 2nd Floor (Campus)",
+    "isDemo": true
+  },
+  {
+    "id": "student-financial-aid-desk",
+    "name": "Student Financial Assistance & Scholarship Desk",
+    "category": "Student Support",
+    "type": "Campus Support (Demo / Template)",
+    "description": "Confidential advisory for emergency student hardship grants, tuition instalment options, and state/national scholarship forms.",
+    "phone": "+91 98765 43212",
+    "website": "https://example-college.edu/financial-aid",
+    "availability": "Tue & Thu, 11:00 AM - 3:00 PM",
+    "location": "Accounts Office Counter 3 (Campus)",
+    "isDemo": true
+  },
+  {
+    "id": "mindfulness-meditation-circle",
+    "name": "Mindful Living & Yoga Club",
+    "category": "Mental Well-being",
+    "type": "Student Club (Demo / Template)",
+    "description": "Weekly non-judgmental group meditation, guided breathing exercises, and relaxation circles organized by student volunteers.",
+    "phone": "",
+    "website": "https://example-college.edu/mindfulness",
+    "availability": "Every Wednesday & Saturday, 5:30 PM",
+    "location": "Campus Sports Complex / Open Lawn",
+    "isDemo": true
+  }
+]

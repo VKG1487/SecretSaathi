@@ -1,0 +1,79 @@
+{
+  "appName": "SecretSaathi",
+  "tagline": "Talk. Assess. Get Support.",
+  "disclaimer": "SecretSaathi is a non-diagnostic self-reflection tool. It is not a medical or psychological diagnostic service, and does not provide clinical advice or therapy. Results are for personal awareness only.",
+  "responseOptions": [
+    { "text": "Never", "score": 0 },
+    { "text": "Rarely", "score": 1 },
+    { "text": "Sometimes", "score": 2 },
+    { "text": "Often", "score": 3 },
+    { "text": "Very Often", "score": 4 }
+  ],
+  "categories": [
+    {
+      "id": "low",
+      "minScore": 0,
+      "maxScore": 12,
+      "name": "Low Stress Indicator",
+      "badgeClass": "indicator-low",
+      "tag": "Low",
+      "summary": "Your responses suggest that your current stress levels are generally balanced and manageable.",
+      "explanation": "A low stress indicator reflects that you appear to be coping well with day-to-day academic and personal expectations. Continuing proactive wellness routines helps sustain this positive balance.",
+      "suggestions": [
+        "Continue your current routine of balancing study, leisure, and restful sleep.",
+        "Maintain positive social connections with friends, peers, and mentors.",
+        "Practice mindful pauses and regular tech-free breaks during study sessions.",
+        "Keep up with personal hobbies and physical activities that bring you joy."
+      ],
+      "recommendedCategories": [
+        "General Support",
+        "Student Support"
+      ]
+    },
+    {
+      "id": "moderate",
+      "minScore": 13,
+      "maxScore": 24,
+      "name": "Moderate Stress Indicator",
+      "badgeClass": "indicator-moderate",
+      "tag": "Moderate",
+      "summary": "Your responses suggest recurring stress that may be affecting your focus, energy, or peace of mind.",
+      "explanation": "A moderate stress indicator is common among students during exam cycles, project submissions, or transitions. Addressing these feelings early helps prevent burnout and restores your daily rhythm.",
+      "suggestions": [
+        "Take regular study breaks (such as 5-10 minutes every hour) to avoid cognitive fatigue.",
+        "Maintain a consistent sleep routine aiming for 7-8 hours of quality rest.",
+        "Talk to someone you trust—a friend, family member, or mentor—about what you are feeling.",
+        "Make intentional time for activities and exercise outside of your academic syllabus.",
+        "Consider visiting your campus student support cell if pressure feels persistent."
+      ],
+      "recommendedCategories": [
+        "Student Support",
+        "College Counselling",
+        "Mental Well-being"
+      ]
+    },
+    {
+      "id": "high",
+      "minScore": 25,
+      "maxScore": 40,
+      "name": "High Stress Indicator",
+      "badgeClass": "indicator-high",
+      "tag": "High",
+      "summary": "Your responses suggest you are experiencing a significant amount of stress and emotional strain.",
+      "explanation": "A high stress indicator signals that academic, personal, or emotional pressures may feel burdensome right now. Experiencing high stress is not a weakness; it is an important signal that your mind and body need care, pacing, and human support.",
+      "suggestions": [
+        "Pause and break down large tasks into one small, manageable step at a time.",
+        "Consider scheduling a confidential conversation with a college counsellor or student advisor.",
+        "Reach out to trusted friends, family, or campus support staff to share your load.",
+        "Give yourself permission to pause non-essential commitments temporarily.",
+        "If you feel deeply overwhelmed or unable to cope, please connect with one of the free, confidential student helplines listed below."
+      ],
+      "recommendedCategories": [
+        "College Counselling",
+        "Mental Well-being",
+        "Helpline",
+        "Emergency Support"
+      ]
+    }
+  ]
+}

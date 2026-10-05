@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "category": "Academic Pressure",
+    "question": "How often have you felt overwhelmed by academic deadlines, exams, or coursework expectations?",
+    "hint": "Consider your workload and assignment schedules over the past two weeks."
+  },
+  {
+    "id": 2,
+    "category": "Feeling Overwhelmed",
+    "question": "How often have you felt that difficulties were piling up so high that you could not overcome them?",
+    "hint": "Think about moments where balancing daily tasks felt unmanageable."
+  },
+  {
+    "id": 3,
+    "category": "Sleep & Rest",
+    "question": "How often have you experienced trouble falling asleep, staying asleep, or waking up unrefreshed?",
+    "hint": "Reflect on whether stress or late hours have disrupted your normal sleep cycle."
+  },
+  {
+    "id": 4,
+    "category": "Concentration",
+    "question": "How often have you found it difficult to focus, concentrate, or absorb material while studying or attending classes?",
+    "hint": "Consider moments when racing thoughts or distraction affected your attention span."
+  },
+  {
+    "id": 5,
+    "category": "Loneliness & Isolation",
+    "question": "How often have you felt isolated, lonely, or disconnected from friends, classmates, or campus life?",
+    "hint": "Reflect on how connected or supported you felt in your social circle."
+  },
+  {
+    "id": 6,
+    "category": "Motivation & Energy",
+    "question": "How often have you felt a lack of energy, interest, or motivation to attend lectures or complete routine tasks?",
+    "hint": "Think about your drive to start and finish daily activities."
+  },
+  {
+    "id": 7,
+    "category": "Personal Concerns",
+    "question": "How often have personal, family, or relationship worries preoccupied your thoughts during the day?",
+    "hint": "Consider worries outside academic coursework that occupy your mental space."
+  },
+  {
+    "id": 8,
+    "category": "Financial Concerns",
+    "question": "How often have financial worries (e.g. tuition, living expenses, books) caused you stress or anxiety?",
+    "hint": "Reflect on whether budget constraints or student expenses have weighed on your mind."
+  },
+  {
+    "id": 9,
+    "category": "Physical Stress Signs",
+    "question": "How often have you noticed physical signs of stress, such as headaches, muscle tension, or stomach discomfort?",
+    "hint": "Notice how your body physically responds when deadlines or pressures mount."
+  },
+  {
+    "id": 10,
+    "category": "General Stress & Coping",
+    "question": "How often have you felt unable to take control of important aspects of your student life or find calm?",
+    "hint": "Reflect on your overall ability to unwind, relax, and regain balance."
+  }
+]
