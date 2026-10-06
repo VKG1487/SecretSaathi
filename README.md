@@ -82,17 +82,28 @@ Open your terminal in the project root directory and run:
 npm install
 ```
 
-### Step 2: Start the Application
+### Step 2: Environment Configuration
+Create your local environment file by copying `.env.example`:
+```bash
+cp .env.example .env
+```
+Default parameters in `.env`:
+- `PORT=3000` (Server listening port)
+- `NODE_ENV=development`
+- `CORS_ORIGIN=*` (Universal cross-origin access for dev servers)
+- `API_BASE_URL=http://localhost:3000`
+
+### Step 3: Start the Application
 Run the standard Node start script:
 ```bash
 npm start
 ```
-or directly with Node:
+or for development:
 ```bash
-node server.js
+npm run dev
 ```
 
-### Step 3: Open in Browser
+### Step 4: Open in Browser
 Open your browser and navigate to:
 ```
 http://localhost:3000
@@ -104,12 +115,15 @@ http://localhost:3000
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
+| `GET` | `/api/health` | Health check endpoint returning service status, uptime, and port. |
 | `GET` | `/api/config` | Retrieves application metadata, response options, and scoring thresholds. |
 | `GET` | `/api/questions` | Retrieves the list of 10 student well-being questions and response scale. |
 | `GET` | `/api/resources` | Returns support resources. Accepts optional query parameters: `?category=...` and `?search=...`. |
 | `GET` | `/api/resources/:id` | Returns single resource details matching the specified ID. |
-| `POST` | `/api/assessment` | Calculates total assessment score, assigns indicator category, and returns suggestions and matched resources. |
+| `POST` | `/api/assessment` | Calculates total assessment score, assigns indicator category, suggestions, and matched resources. |
 | `POST` | `/api/score` | Alias endpoint for `/api/assessment`. |
+| `GET` | `/api/chat/options` | Returns initial chatbot greeting and available topic prompts. |
+| `POST` | `/api/chat` | Handles user messages, topic selections, crisis safety routing, and suggestions. |
 
 ### Example POST `/api/score` Request:
 ```json

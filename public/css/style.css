@@ -220,6 +220,66 @@ button, input, select, textarea {
   color: var(--text-main);
 }
 
+/* --- Live Backend Status Pill in Navbar --- */
+.backend-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  transition: var(--transition);
+  margin-left: 14px;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.backend-status-pill .status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.backend-status-pill.online {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.backend-status-pill.online .status-dot {
+  background-color: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+}
+
+.backend-status-pill.offline {
+  background-color: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.backend-status-pill.offline .status-dot {
+  background-color: #f59e0b;
+}
+
+.backend-status-pill.checking {
+  background-color: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+}
+
+.backend-status-pill.checking .status-dot {
+  background-color: #94a3b8;
+  animation: pulseDot 1s infinite alternate;
+}
+
+@keyframes pulseDot {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+
 /* --- Buttons & UI Elements --- */
 .btn {
   display: inline-flex;

@@ -1,5 +1,6 @@
 /**
  * SecretSaathi - Resources Directory Logic
+ * Connected to Express REST API (/api/resources and /api/resources/:id)
  * Handles real-time search, category filtering, and rendering of campus & national resources
  */
 
@@ -18,21 +19,6 @@ const onReady = window.onReady || function(fn) {
     document.addEventListener('DOMContentLoaded', fn);
   } else {
     fn();
-  }
-};
-
-const getApiUrl = window.getApiUrl || function(endpoint) {
-  try {
-    if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
-      if (window.location.port && window.location.port !== '3000') {
-        const host = window.location.hostname || 'localhost';
-        return `http://${host}:3000${endpoint}`;
-      }
-      return endpoint;
-    }
-    return `http://localhost:3000${endpoint}`;
-  } catch (e) {
-    return endpoint;
   }
 };
 
@@ -138,7 +124,7 @@ const FALLBACK_RESOURCES = [
   }
 ];
 
-let allResources = [];
+let allResources = [...FALLBACK_RESOURCES];
 let currentCategory = 'All';
 let currentSearch = '';
 
@@ -147,125 +133,89 @@ onReady(() => {
 });
 
 async function initResources() {
+  setupFilters();
+  await fetchResourcesFromBackend();
+}
+
+/**
+ * Fetch resources from Express backend with query params
+ */
+async function fetchResourcesFromBackend() {
   const loadingEl = document.getElementById('resourcesLoading');
   const errorEl = document.getElementById('resourcesError');
 
-  try {
-    const targetUrl = getApiUrl('/api/resources');
-    let data = null;
+  if (loadingEl) loadingEl.style.display = 'block';
+  if (errorEl) errorEl.style.display = 'none';
 
-    try {
-      const res = await fetch(targetUrl);
-      if (res.ok) data = await res.json();
-    } catch (netErr) {
-      console.warn('Network fetch to /api/resources failed, trying direct localhost:3000:', netErr);
-      try {
-        const directRes = await fetch('http://localhost:3000/api/resources');
-        if (directRes.ok) data = await directRes.json();
-      } catch (directErr) {
-        console.warn('Direct localhost fetch failed:', directErr);
+  let queryUrl = '/api/resources';
+  const params = [];
+  if (currentCategory && currentCategory !== 'All') {
+    params.push(`category=${encodeURIComponent(currentCategory)}`);
+  }
+  if (currentSearch && currentSearch.trim() !== '') {
+    params.push(`search=${encodeURIComponent(currentSearch.trim())}`);
+  }
+  if (params.length > 0) {
+    queryUrl += '?' + params.join('&');
+  }
+
+  try {
+    let data = null;
+    if (typeof window.apiFetch === 'function') {
+      const res = await window.apiFetch(queryUrl, { method: 'GET' }, 3500);
+      if (res && res.ok) {
+        data = await res.json();
       }
     }
 
-    if (data && data.success && Array.isArray(data.resources) && data.resources.length > 0) {
-      allResources = data.resources;
+    if (data && data.success && Array.isArray(data.resources)) {
+      renderResourceCards(data.resources, data.count, data.total);
     } else {
-      console.info('Using embedded fallback resources for seamless directory display.');
-      allResources = FALLBACK_RESOURCES;
+      filterAndRenderLocalFallback();
     }
-
-    if (loadingEl) loadingEl.style.display = 'none';
-    if (errorEl) errorEl.style.display = 'none';
-
-    setupFilters();
-    filterAndRenderResources();
-
   } catch (err) {
-    console.error('Error loading resources, using fallback:', err);
-    allResources = FALLBACK_RESOURCES;
+    console.warn('Backend /api/resources fetch error, using local fallback:', err);
+    filterAndRenderLocalFallback();
+  } finally {
     if (loadingEl) loadingEl.style.display = 'none';
-    if (errorEl) errorEl.style.display = 'none';
-    setupFilters();
-    filterAndRenderResources();
   }
 }
 
 /**
- * Setup category pills and search input listeners
+ * Filter local fallback resources in case backend is offline
  */
-function setupFilters() {
-  const searchInput = document.getElementById('resourceSearch');
-  const categoryPills = document.querySelectorAll('.filter-pill');
+function filterAndRenderLocalFallback() {
+  const filtered = FALLBACK_RESOURCES.filter(item => {
+    const matchesCategory = (currentCategory === 'All') ||
+      (item.category && item.category.toLowerCase() === currentCategory.toLowerCase());
 
-  // Search input with small debounce
-  if (searchInput) {
-    let debounceTimer;
-    searchInput.addEventListener('input', (e) => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        currentSearch = e.target.value.trim().toLowerCase();
-        filterAndRenderResources();
-      }, 200);
-    });
-  }
+    const matchesSearch = !currentSearch ||
+      item.name.toLowerCase().includes(currentSearch) ||
+      item.description.toLowerCase().includes(currentSearch) ||
+      (item.category && item.category.toLowerCase() === currentSearch) ||
+      (item.location && item.location.toLowerCase().includes(currentSearch));
 
-  // Category pill selection
-  categoryPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      categoryPills.forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      currentCategory = pill.getAttribute('data-category') || 'All';
-      filterAndRenderResources();
-    });
+    return matchesCategory && matchesSearch;
   });
 
-  // URL query parameter support (e.g. resources.html?category=Helpline)
-  const urlParams = new URLSearchParams(window.location.search);
-  const catParam = urlParams.get('category');
-  if (catParam) {
-    const matchedPill = Array.from(categoryPills).find(
-      p => p.getAttribute('data-category')?.toLowerCase() === catParam.toLowerCase()
-    );
-    if (matchedPill) {
-      categoryPills.forEach(p => p.classList.remove('active'));
-      matchedPill.classList.add('active');
-      currentCategory = matchedPill.getAttribute('data-category');
-    }
-  }
+  renderResourceCards(filtered, filtered.length, FALLBACK_RESOURCES.length);
 }
 
 /**
- * Filter resources by category and search keyword, then render to grid
+ * Render resource cards into grid
  */
-function filterAndRenderResources() {
+function renderResourceCards(resources, count, total) {
   const grid = document.getElementById('resourcesGrid');
   const countEl = document.getElementById('resourcesCount');
   const emptyEl = document.getElementById('emptyState');
 
   if (!grid) return;
 
-  const filtered = allResources.filter(item => {
-    // 1. Category check
-    const matchesCategory = (currentCategory === 'All') ||
-      (item.category && item.category.toLowerCase() === currentCategory.toLowerCase());
-
-    // 2. Search check
-    const matchesSearch = !currentSearch ||
-      item.name.toLowerCase().includes(currentSearch) ||
-      item.description.toLowerCase().includes(currentSearch) ||
-      (item.category && item.category.toLowerCase().includes(currentSearch)) ||
-      (item.location && item.location.toLowerCase().includes(currentSearch));
-
-    return matchesCategory && matchesSearch;
-  });
-
-  // Update counter
   if (countEl) {
-    countEl.textContent = `Showing ${filtered.length} of ${allResources.length} support resources`;
+    countEl.textContent = `Showing ${count} of ${total || resources.length} support resources`;
   }
 
-  // Handle empty state
-  if (filtered.length === 0) {
+  if (resources.length === 0) {
     grid.innerHTML = '';
     if (emptyEl) emptyEl.style.display = 'block';
     return;
@@ -273,9 +223,8 @@ function filterAndRenderResources() {
 
   if (emptyEl) emptyEl.style.display = 'none';
 
-  // Render cards
   grid.innerHTML = '';
-  filtered.forEach(res => {
+  resources.forEach(res => {
     const card = document.createElement('article');
     card.className = 'resource-card';
 
@@ -305,6 +254,50 @@ function filterAndRenderResources() {
 }
 
 /**
+ * Setup category pills and search input listeners
+ */
+function setupFilters() {
+  const searchInput = document.getElementById('resourceSearch');
+  const categoryPills = document.querySelectorAll('.filter-pill');
+
+  // Search input with debounce to query backend
+  if (searchInput) {
+    let debounceTimer;
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        currentSearch = e.target.value.trim().toLowerCase();
+        fetchResourcesFromBackend();
+      }, 250);
+    });
+  }
+
+  // Category pill selection
+  categoryPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      categoryPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      currentCategory = pill.getAttribute('data-category') || 'All';
+      fetchResourcesFromBackend();
+    });
+  });
+
+  // URL query parameter support (e.g. resources.html?category=Helpline)
+  const urlParams = new URLSearchParams(window.location.search);
+  const catParam = urlParams.get('category');
+  if (catParam) {
+    const matchedPill = Array.from(categoryPills).find(
+      p => p.getAttribute('data-category')?.toLowerCase() === catParam.toLowerCase()
+    );
+    if (matchedPill) {
+      categoryPills.forEach(p => p.classList.remove('active'));
+      matchedPill.classList.add('active');
+      currentCategory = matchedPill.getAttribute('data-category');
+    }
+  }
+}
+
+/**
  * Reset all filters back to default
  */
 window.resetResourceFilters = function() {
@@ -318,5 +311,5 @@ window.resetResourceFilters = function() {
   if (allPill) allPill.classList.add('active');
   currentCategory = 'All';
 
-  filterAndRenderResources();
+  fetchResourcesFromBackend();
 };

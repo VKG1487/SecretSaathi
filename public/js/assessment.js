@@ -70,21 +70,16 @@ async function initAssessment() {
   const errorEl = document.getElementById('errorState');
 
   try {
-    const targetUrl = getApiUrl('/api/questions');
     let data = null;
 
-    try {
-      const res = await fetch(targetUrl);
-      if (res.ok) {
-        data = await res.json();
-      }
-    } catch (netErr) {
-      console.warn('Network fetch to /api/questions failed, attempting direct localhost:3000:', netErr);
+    if (typeof window.apiFetch === 'function') {
       try {
-        const directRes = await fetch('http://localhost:3000/api/questions');
-        if (directRes.ok) data = await directRes.json();
-      } catch (directErr) {
-        console.warn('Direct localhost fetch failed:', directErr);
+        const res = await window.apiFetch('/api/questions', { method: 'GET' }, 3500);
+        if (res && res.ok) {
+          data = await res.json();
+        }
+      } catch (netErr) {
+        console.warn('Backend fetch to /api/questions failed:', netErr);
       }
     }
 
@@ -92,7 +87,7 @@ async function initAssessment() {
       questions = data.questions;
       responseOptions = data.responseOptions || DEFAULT_OPTIONS;
     } else {
-      console.info('Using embedded fallback assessment questions for seamless operation.');
+      console.info('Using fallback assessment questions for seamless operation.');
       questions = FALLBACK_QUESTIONS;
       responseOptions = DEFAULT_OPTIONS;
     }
@@ -314,28 +309,17 @@ async function submitAssessment() {
   try {
     let resultData = null;
 
-    try {
-      const res = await fetch(targetUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ answers: formattedAnswers })
-      });
-      if (res.ok) {
-        resultData = await res.json();
-      }
-    } catch (fetchErr) {
-      console.warn('Network submit failed, trying localhost:3000/api/score:', fetchErr);
+    if (typeof window.apiFetch === 'function') {
       try {
-        const directRes = await fetch('http://localhost:3000/api/score', {
+        const res = await window.apiFetch('/api/score', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ answers: formattedAnswers })
-        });
-        if (directRes.ok) resultData = await directRes.json();
-      } catch (directErr) {
-        console.warn('Direct localhost submit failed:', directErr);
+        }, 4000);
+        if (res && res.ok) {
+          resultData = await res.json();
+        }
+      } catch (fetchErr) {
+        console.warn('Backend submit failed:', fetchErr);
       }
     }
 

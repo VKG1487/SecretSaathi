@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "test": "node test_comprehensive.js"
   },
   "keywords": [
     "student-wellbeing",
@@ -17,6 +18,8 @@
   "author": "Vibhash Kumar Giri, Ankit Kumar, Samik, Krishna Mahajan",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.5",
     "express": "^4.19.2"
   }
 }

@@ -147,10 +147,66 @@ async function runTests() {
     console.log(`CLEAN ROUTE /${route} -> Status:`, cRes.status, typeof cRes.body === 'string' && cRes.body.includes('SecretSaathi') ? 'OK' : 'FAIL');
   }
 
+  // 15. GET /api/health
+  const healthRes = await request({ host: 'localhost', port: 3000, path: '/api/health', method: 'GET' });
+  console.log('GET /api/health -> Status:', healthRes.status, 'Healthy:', healthRes.body?.status === 'healthy' ? 'OK' : 'FAIL');
+
+  // 16. GET /api/chat/options
+  const chatOpt = await request({ host: 'localhost', port: 3000, path: '/api/chat/options', method: 'GET' });
+  console.log('GET /api/chat/options -> Status:', chatOpt.status, 'Topics count:', chatOpt.body?.topics?.length);
+
+  // 17. POST /api/chat (Keyword query)
+  const chatMsg = await request({
+    host: 'localhost',
+    port: 3000,
+    path: '/api/chat',
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
+  }, { message: 'I have severe exam stress and anxiety' });
+  console.log('POST /api/chat (Exam query) -> Status:', chatMsg.status, 'Topic:', chatMsg.body?.title);
+
+  // 18. POST /api/chat (Topic selection)
+  const chatTopic = await request({
+    host: 'localhost',
+    port: 3000,
+    path: '/api/chat',
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
+  }, { topic: 'sleep' });
+  console.log('POST /api/chat (Topic sleep) -> Status:', chatTopic.status, 'Title:', chatTopic.body?.title);
+
+  // 19. POST /api/chat (Crisis detection)
+  const chatCrisis = await request({
+    host: 'localhost',
+    port: 3000,
+    path: '/api/chat',
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
+  }, { message: 'I want to die' });
+  console.log('POST /api/chat (Crisis safety) -> Status:', chatCrisis.status, 'isCrisis:', chatCrisis.body?.isCrisis, chatCrisis.body?.isCrisis ? 'OK (Crisis safety triggered)' : 'FAIL');
+
   console.log('--- ALL AUTOMATED TESTS FINISHED SUCCESSFULLY ---');
 }
 
-runTests().catch(err => {
+async function main() {
+  let embeddedServer = null;
+  try {
+    await request({ host: 'localhost', port: 3000, path: '/api/health', method: 'GET' });
+  } catch (e) {
+    const { startServer } = require('./server.js');
+    embeddedServer = startServer(3000);
+    await new Promise(r => setTimeout(r, 400));
+  }
+
+  try {
+    await runTests();
+  } finally {
+    if (embeddedServer) embeddedServer.close();
+  }
+}
+
+main().catch(err => {
   console.error('Test execution error:', err);
   process.exit(1);
 });
+

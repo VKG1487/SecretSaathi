@@ -1,0 +1,155 @@
+{
+  "greeting": {
+    "title": "Welcome to SecretSaathi",
+    "message": "Hi, I'm <strong>SecretSaathi</strong>, your student well-being companion. What would you like help with today?",
+    "promptOptions": [
+      { "label": "Academic Stress", "key": "academic" },
+      { "label": "Feeling Overwhelmed", "key": "overwhelmed" },
+      { "label": "Feeling Down & Sad", "key": "emotional" },
+      { "label": "Sleep & Rest", "key": "sleep" },
+      { "label": "Loneliness", "key": "loneliness" },
+      { "label": "Personal Concerns", "key": "personal" },
+      { "label": "Start Self-Assessment", "url": "assessment.html" },
+      { "label": "Find Support", "key": "support" }
+    ]
+  },
+  "crisisKeywords": [
+    "suicid",
+    "kill myself",
+    "end my life",
+    "die",
+    "self-harm",
+    "harm myself",
+    "cut myself",
+    "want to disappear",
+    "no reason to live"
+  ],
+  "crisisResponse": {
+    "title": "Immediate Confidential Support Available",
+    "message": "<div style=\"color: #991b1b; font-weight: 700; margin-bottom: 8px;\">&#9888; Immediate Confidential Support Available</div><p>If you are experiencing acute emotional pain or having thoughts of self-harm, please know that you are not alone and free, confidential support is available right now:</p><ul style=\"margin: 8px 0 8px 18px; font-size: 0.9rem;\"><li><strong>Tele-MANAS (Govt. of India):</strong> Call <a href=\"tel:14416\" style=\"color:var(--teal); font-weight:700;\">14416</a> (24/7 Toll-Free)</li><li><strong>KIRAN Helpline:</strong> Call <a href=\"tel:18005990019\" style=\"color:var(--teal); font-weight:700;\">1800-599-0019</a> (24/7 Toll-Free)</li><li><strong>National Emergency Services:</strong> Call <a href=\"tel:112\" style=\"color:#991b1b; font-weight:700;\">112</a></li></ul><p style=\"margin-top: 8px;\">Please reach out to one of these free helplines or contact a trusted friend or counsellor.</p>",
+    "actions": [
+      { "text": "View Emergency Support", "url": "resources.html?category=Emergency%20Support" },
+      { "text": "Return to Main Menu", "action": "menu" }
+    ]
+  },
+  "topics": {
+    "academic": {
+      "title": "Academic Stress & Exam Pressure",
+      "text": "Academic pressure is very common during coursework submissions and exam periods. When syllabus loads feel heavy, it helps to break assignments into 25-30 minute focused blocks (the Pomodoro technique), organize a simple daily checklist, and celebrate small completions.",
+      "suggestions": [
+        "Break study sessions into 25-minute focused blocks with 5-minute pauses.",
+        "Reach out to course professors or peer study groups for conceptual doubts.",
+        "Remember that your worth as a human being is never defined solely by grades."
+      ],
+      "actions": [
+        { "text": "Start Self-Assessment", "url": "assessment.html" },
+        { "text": "View Campus & Study Resources", "url": "resources.html" },
+        { "text": "Return to Main Menu", "action": "menu" }
+      ],
+      "keywords": ["academic", "exam", "exams", "exam stress", "exam anxiety", "study", "studying", "assignment", "assignments", "grade", "grades", "marks", "syllabus", "test", "finals", "gpa", "coursework", "deadline", "deadlines", "fail", "failing"]
+    },
+    "overwhelmed": {
+      "title": "Feeling Overwhelmed & Burnout",
+      "text": "When things pile up all at once, your mind can feel saturated. Take a deep, slow breath right now. Inhale for 4 seconds, hold for 4 seconds, and exhale slowly for 4 seconds. Right now, you do not need to solve everything today—just identify one small thing you can control.",
+      "suggestions": [
+        "Step away from your screen or study desk for 10 minutes to reset.",
+        "Write down everything on your mind on paper to declutter your thoughts.",
+        "Pick just ONE small task to complete, and defer or delegate the rest."
+      ],
+      "actions": [
+        { "text": "Take 3-Minute Assessment", "url": "assessment.html" },
+        { "text": "Find Support Resources", "url": "resources.html" },
+        { "text": "Return to Main Menu", "action": "menu" }
+      ],
+      "keywords": ["overwhelm", "overwhelmed", "stress", "stressed", "burnout", "pressure", "tired", "exhausted", "anxious", "anxiety", "panic", "suffocated", "too much", "cannot focus", "cant focus", "unable to study"]
+    },
+    "emotional": {
+      "title": "Feeling Down, Sad, or Emotionally Low",
+      "text": "Going through periods of sadness or emotional fatigue is a real and valid human experience. College life brings hidden weights that many students carry quietly. Remember that needing a pause or seeking help is a sign of resilience, not weakness.",
+      "suggestions": [
+        "Permit yourself to feel what you are feeling without self-criticism.",
+        "Take a walk, listen to soothing music, or get outside into natural light.",
+        "Consider sharing what you are going through with a trusted mentor, friend, or campus counsellor."
+      ],
+      "actions": [
+        { "text": "Start Self-Assessment", "url": "assessment.html" },
+        { "text": "View Counselling Services", "url": "resources.html" },
+        { "text": "Return to Main Menu", "action": "menu" }
+      ],
+      "keywords": ["depress", "depression", "sad", "sadness", "crying", "unhappy", "hopeless", "down", "low", "miserable", "hurt", "crying", "heavy", "mood"]
+    },
+    "sleep": {
+      "title": "Sleep & Rest Quality",
+      "text": "Sleep directly influences emotional stability, memory retention, and energy levels. Late-night cramming often causes diminishing returns because your brain needs REM sleep to consolidate what you have learned.",
+      "suggestions": [
+        "Put away phone and laptop screens 30 minutes before going to bed.",
+        "Keep a consistent wake-up time, even on weekends, to stabilize your circadian rhythm.",
+        "Limit caffeinated drinks (coffee, energy drinks, strong tea) after 5:00 PM."
+      ],
+      "actions": [
+        { "text": "Explore Well-being Resources", "url": "resources.html" },
+        { "text": "Check Your Stress Indicator", "url": "assessment.html" },
+        { "text": "Return to Main Menu", "action": "menu" }
+      ],
+      "keywords": ["sleep", "sleeping", "insomnia", "sleepless", "rest", "night", "waking", "tired", "fatigue", "awake", "dreams", "caffeine"]
+    },
+    "loneliness": {
+      "title": "Loneliness & Feeling Disconnected",
+      "text": "College campuses can feel crowded yet lonely at the same time. Many students quietly experience feelings of isolation while assuming everyone else has it figured out. You are not alone in feeling this way.",
+      "suggestions": [
+        "Try sending a simple check-in message to an old friend, sibling, or family member.",
+        "Consider joining a campus club, volunteer group, sports team, or hobby circle.",
+        "Spend some study time in a shared campus library, cafe, or student commons."
+      ],
+      "actions": [
+        { "text": "Find Peer Support & Clubs", "url": "resources.html" },
+        { "text": "Start Self-Assessment", "url": "assessment.html" },
+        { "text": "Return to Main Menu", "action": "menu" }
+      ],
+      "keywords": ["lonely", "loneliness", "alone", "friend", "friends", "isolate", "isolated", "isolation", "connect", "homesick", "left out", "nobody", "no one to talk"]
+    },
+    "personal": {
+      "title": "Personal Concerns & Worries",
+      "text": "Balancing family expectations, relationship changes, financial adjustments, and personal identity can create substantial background stress for students.",
+      "suggestions": [
+        "Acknowledge your feelings without judging yourself for having them.",
+        "Speak with a trusted confidant, mentor, or campus counsellor in confidence.",
+        "Remember that seeking support is a sign of proactive strength, not weakness."
+      ],
+      "actions": [
+        { "text": "View Counselling Services", "url": "resources.html" },
+        { "text": "Start Self-Assessment", "url": "assessment.html" },
+        { "text": "Return to Main Menu", "action": "menu" }
+      ],
+      "keywords": ["personal", "family", "relationship", "relationships", "parents", "money", "finance", "finances", "expense", "worried", "breakup", "expectation", "expectations", "career", "future", "home"]
+    },
+    "support": {
+      "title": "Find Campus & National Support",
+      "text": "SecretSaathi maintains a curated directory of verified national student helplines (such as Tele-MANAS 14416 and KIRAN 1800-599-0019) and campus counselling services for confidential assistance.",
+      "suggestions": [
+        "Helpline services are free, confidential, and available 24/7.",
+        "Campus counselling cells offer student-friendly guidance for daily challenges without academic penalty."
+      ],
+      "actions": [
+        { "text": "Open Resources Directory", "url": "resources.html" },
+        { "text": "Start Self-Assessment", "url": "assessment.html" },
+        { "text": "Return to Main Menu", "action": "menu" }
+      ],
+      "keywords": ["support", "help", "helpline", "counsel", "counsellor", "counseling", "therapist", "therapy", "contact", "phone", "number", "service", "helplines"]
+    },
+    "assessment": {
+      "title": "Student Self-Assessment",
+      "text": "You can take our non-diagnostic 10-question self-assessment right now. It takes about 2-3 minutes to reflect on study stress, sleep, focus, and emotional stamina.",
+      "suggestions": [
+        "10 straightforward questions with confidential in-memory scoring.",
+        "Clear Low, Moderate, or High stress indicator results.",
+        "Actionable wellness suggestions and personalized resources."
+      ],
+      "actions": [
+        { "text": "Start Self-Assessment &rarr;", "url": "assessment.html" },
+        { "text": "Return to Main Menu", "action": "menu" }
+      ],
+      "keywords": ["assess", "assessment", "quiz", "test", "indicator", "score", "measure", "evaluate", "check"]
+    }
+  }
+}
