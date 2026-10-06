@@ -1,35 +1,42 @@
-const escapeHTML = window.escapeHTML || function(str) {
-  if (str === null || str === undefined) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-};
+// Fallback utilities if main.js is not loaded
+if (typeof window.escapeHTML !== 'function') {
+  window.escapeHTML = function(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  };
+}
 
-const onReady = window.onReady || function(fn) {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', fn);
-  } else {
-    fn();
-  }
-};
+if (typeof window.onReady !== 'function') {
+  window.onReady = function(fn) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn);
+    } else {
+      fn();
+    }
+  };
+}
 
-const getApiUrl = window.getApiUrl || function(endpoint) {
-  try {
-    if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
-      if (window.location.port && window.location.port !== '3000') {
-        const host = window.location.hostname || 'localhost';
-        return `http://${host}:3000${endpoint}`;
+if (typeof window.getApiUrl !== 'function') {
+  window.getApiUrl = function(endpoint) {
+    try {
+      if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+        if (window.location.port && window.location.port !== '3000') {
+          const host = window.location.hostname || 'localhost';
+          return `http://${host}:3000${endpoint}`;
+        }
+        return endpoint;
       }
+      return `http://localhost:3000${endpoint}`;
+    } catch (e) {
       return endpoint;
     }
-    return `http://localhost:3000${endpoint}`;
-  } catch (e) {
-    return endpoint;
-  }
-};
+  };
+}
 
 const FALLBACK_QUESTIONS = [
   { id: 1, category: "Academic Pressure", question: "How often have you felt overwhelmed by academic deadlines, exams, or coursework expectations?", hint: "Consider your workload and assignment schedules over the past two weeks." },

@@ -4,23 +4,28 @@
  * Handles real-time search, category filtering, and rendering of campus & national resources
  */
 
-const escapeHTML = window.escapeHTML || function(str) {
-  if (str === null || str === undefined) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-};
+// Fallback utilities if main.js is not loaded
+if (typeof window.escapeHTML !== 'function') {
+  window.escapeHTML = function(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  };
+}
 
-const onReady = window.onReady || function(fn) {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', fn);
-  } else {
-    fn();
-  }
-};
+if (typeof window.onReady !== 'function') {
+  window.onReady = function(fn) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn);
+    } else {
+      fn();
+    }
+  };
+}
 
 const FALLBACK_RESOURCES = [
   {
