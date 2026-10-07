@@ -97,14 +97,14 @@
   },
   {
     "id": "mindfulness-meditation-circle",
-    "name": "Mindful Living & Yoga Club",
+    "name": "Kunjikaa Wellness - Gurugram",
     "category": "Mental Well-being",
-    "type": "Student Club (Demo / Template)",
+    "type": "Verified Non-Profit Support",
     "description": "Weekly non-judgmental group meditation, guided breathing exercises, and relaxation circles organized by student volunteers.",
-    "phone": "",
-    "website": "https://example-college.edu/mindfulness",
-    "availability": "Every Wednesday & Saturday, 5:30 PM",
-    "location": "Campus Sports Complex / Open Lawn",
-    "isDemo": true
+    "phone": "+91 81234 89532",
+    "website": "https://www.kunjikaawellness.com/",
+    "availability": "Everyday (Mon - Sun), 9:00 AM - 08:00 PM",
+    "location": "Dr. Sonali Mishra Kunjikaa Wellness, Sector 77, Gurugram, Haryana 122004",
+    "isDemo": false
   }
 ]
