@@ -1,0 +1,45 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["data/**"]
+
+# API Redirects: Route all /api/* requests to the serverless function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
+# Pretty URL routing for frontend pages
+[[redirects]]
+  from = "/assessment"
+  to = "/assessment.html"
+  status = 200
+
+[[redirects]]
+  from = "/chatbot"
+  to = "/chatbot.html"
+  status = 200
+
+[[redirects]]
+  from = "/results"
+  to = "/results.html"
+  status = 200
+
+[[redirects]]
+  from = "/resources"
+  to = "/resources.html"
+  status = 200
+
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200

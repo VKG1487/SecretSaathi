@@ -17,11 +17,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Helper to safely read JSON files
+// Helper to safely read JSON files (supports both direct fs read and serverless bundle require)
 function readJsonFile(relativePath) {
-  const filePath = path.join(__dirname, relativePath);
-  const data = fs.readFileSync(filePath, 'utf-8');
-  return JSON.parse(data);
+  try {
+    const normalized = relativePath.startsWith('./') ? relativePath : `./${relativePath}`;
+    return require(normalized);
+  } catch (requireErr) {
+    const filePath = path.isAbsolute(relativePath) ? relativePath : path.join(__dirname, relativePath);
+    if (fs.existsSync(filePath)) {
+      return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    }
+    const cwdPath = path.join(process.cwd(), relativePath);
+    return JSON.parse(fs.readFileSync(cwdPath, 'utf-8'));
+  }
 }
 
 // -------------------------------------------------------------
