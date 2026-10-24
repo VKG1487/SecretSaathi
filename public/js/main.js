@@ -113,35 +113,19 @@ function escapeHTML(str) {
 }
 
 /**
- * Checks backend health and displays a live connection pill in the navbar
+ * Checks backend health silently in the background (no UI element rendered)
  */
 async function checkBackendHealth() {
-  const navContainer = document.querySelector('.nav-container');
-  if (!navContainer) return;
-
-  let statusPill = document.getElementById('backendStatusIndicator');
-  if (!statusPill) {
-    statusPill = document.createElement('div');
-    statusPill.id = 'backendStatusIndicator';
-    statusPill.className = 'backend-status-pill checking';
-    statusPill.innerHTML = `<span class="status-dot"></span> <span class="status-label">Connecting...</span>`;
-    
-    // Insert before mobile toggle
-    const mobileToggle = document.getElementById('mobileToggle');
-    if (mobileToggle) {
-      navContainer.insertBefore(statusPill, mobileToggle);
-    } else {
-      navContainer.appendChild(statusPill);
-    }
+  // Ensure any status indicator element is cleanly removed from DOM if present
+  const existingPill = document.getElementById('backendStatusIndicator');
+  if (existingPill) {
+    existingPill.remove();
   }
 
   try {
     const res = await apiFetch('/api/health', { method: 'GET' }, 2500);
     if (res && res.ok) {
       const data = await res.json();
-      statusPill.className = 'backend-status-pill online';
-      statusPill.title = `Backend Connected on port ${data.port || 3000} (${data.environment || 'development'})`;
-      statusPill.innerHTML = `<span class="status-dot"></span> <span class="status-label">Backend Online</span>`;
       window.isBackendConnected = true;
       window.dispatchEvent(new CustomEvent('backendStatusChange', { detail: { online: true, data } }));
       return true;
@@ -149,9 +133,6 @@ async function checkBackendHealth() {
       throw new Error('Health check returned non-200');
     }
   } catch (err) {
-    statusPill.className = 'backend-status-pill offline';
-    statusPill.title = 'Backend offline or unreachable. Local fallback active.';
-    statusPill.innerHTML = `<span class="status-dot"></span> <span class="status-label">Local Fallback</span>`;
     window.isBackendConnected = false;
     window.dispatchEvent(new CustomEvent('backendStatusChange', { detail: { online: false } }));
     return false;
@@ -188,7 +169,7 @@ onReady(() => {
   // 2. Highlight Active Nav Link based on URL pathname
   highlightActiveNavLink();
 
-  // 3. Check and display backend connection health
+  // 3. Silently verify backend connectivity in background (internal only)
   checkBackendHealth();
 });
 

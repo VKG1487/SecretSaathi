@@ -30,13 +30,14 @@ function readJsonFile(relativePath) {
 
 /**
  * GET /api/health
- * Health check & environment status endpoint
+ * Health check & environment status endpoint (Backend Online verification)
  */
 app.get('/api/health', (req, res) => {
   res.json({
     success: true,
     status: 'healthy',
-    message: 'SecretSaathi API is operational',
+    backend: 'online',
+    message: 'SecretSaathi API is operational (Backend Online)',
     port: PORT,
     environment: process.env.NODE_ENV || 'development',
     timestamp: new Date().toISOString()
@@ -474,6 +475,7 @@ function startServer(portToUse) {
   const s = app.listen(portToUse, () => {
     console.log(`===============================================`);
     console.log(`  SecretSaathi Server Running`);
+    console.log(`  Status: Backend Online`);
     console.log(`  URL: http://localhost:${portToUse}`);
     console.log(`  Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`===============================================`);

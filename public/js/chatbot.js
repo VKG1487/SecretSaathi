@@ -431,10 +431,15 @@ function showTypingIndicator() {
   typingRow.id = 'typingIndicatorRow';
   typingRow.className = 'message-row message-bot';
   typingRow.innerHTML = `
-    <div class="message-bubble typing-bubble" aria-label="SecretSaathi is typing">
-      <span class="typing-dot"></span>
-      <span class="typing-dot"></span>
-      <span class="typing-dot"></span>
+    <div class="message-bot-content">
+      <div class="message-bot-avatar">
+        <img src="assets/chatbot-avatar.png" alt="SecretSaathi" class="message-bot-avatar-img">
+      </div>
+      <div class="message-bubble typing-bubble" aria-label="SecretSaathi is typing">
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+        <span class="typing-dot"></span>
+      </div>
     </div>
   `;
   chatMessages.appendChild(typingRow);
@@ -473,9 +478,14 @@ function appendBotMessage(htmlContent, actionButtons = []) {
   }
 
   row.innerHTML = `
-    <div class="message-bubble">
-      ${htmlContent}
-      ${actionsHtml}
+    <div class="message-bot-content">
+      <div class="message-bot-avatar">
+        <img src="assets/chatbot-avatar.png" alt="SecretSaathi" class="message-bot-avatar-img">
+      </div>
+      <div class="message-bubble">
+        ${htmlContent}
+        ${actionsHtml}
+      </div>
     </div>
     <span class="message-time">${getCurrentTimeString()}</span>
   `;
